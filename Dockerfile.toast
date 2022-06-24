@@ -1,7 +1,7 @@
 FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
-LABEL version="2.7.0"
-LABEL description="This is a version 2.7.0 ToastStunt server packaged with a Toast core"
+LABEL version="2.6.1 r16"
+LABEL description="This is a version 2.6.1 ToastStunt server packaged with a Toast core"
 EXPOSE 8888/tcp
 
 RUN mkdir -p /home/moo/files
@@ -12,6 +12,9 @@ COPY ./ToastCore/* /home/moo/
 COPY ./ToastCore/* /home/moo-init/
 
 #RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -yq build-essential gperf libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev
+#RUN apt-get install -yq build-essential gperf libsqlite3 libaspell nettle libcurl4-openssl
 
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
