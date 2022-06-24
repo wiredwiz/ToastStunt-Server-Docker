@@ -4,7 +4,7 @@ LABEL version="2.6.1 r16"
 LABEL description="This is a version 2.6.1 ToastStunt server packaged with a Toast core and the following server debugging options turned on: LOG_COMMANDS, LOG_EVALS, LOG_GC_STATS, SAVE_FINISHED_TASKS, INCLUDE_RT_VARS"
 EXPOSE 8888/tcp
 
-# build commend: docker build --no-cache -f Dockerfile.toast -t wiredwizard/toaststunt:2.6.1-Debug .
+# build commend: docker build --no-cache -f Dockerfile.debug -t wiredwizard/toaststunt:2.6.1-Debug .
 
 RUN mkdir -p /home/moo/files
 RUN mkdir /home/moo-init

@@ -4,7 +4,7 @@ LABEL version="2.6.1 r16"
 LABEL description="This is a version 2.6.1 ToastStunt server packaged with a minimal core"
 EXPOSE 8888/tcp
 
-# build commend: docker build --no-cache -f Dockerfile.toast -t wiredwizard/toaststunt:2.6.1-Minimal .
+# build commend: docker build --no-cache -f Dockerfile.minimal -t wiredwizard/toaststunt:2.6.1-Minimal .
 
 RUN mkdir -p /home/moo/files
 RUN mkdir /home/moo-init
