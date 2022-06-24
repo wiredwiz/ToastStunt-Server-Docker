@@ -1,7 +1,7 @@
 FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
-LABEL version="1.8.3"
-LABEL description="This is a version 1.8.3 ToastStunt server packaged with a Toast core"
+LABEL version="2.7.0"
+LABEL description="This is a version 2.7.0 ToastStunt server packaged with a Toast core"
 EXPOSE 8888/tcp
 
 RUN mkdir -p /home/moo/files
