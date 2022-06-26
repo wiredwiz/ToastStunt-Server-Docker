@@ -31,6 +31,9 @@ if [ ! -r $1.db ]; then
 	fi
 fi
 
+mkdir -p files
+mkdir -p executables
+
 if [ -r $1.db.new ]; then
 	mv $1.db $1.db.old
 	mv $1.db.new $1.db

@@ -7,6 +7,7 @@ EXPOSE 8888/tcp
 # build commend: docker build --no-cache -f Dockerfile.toast -t wiredwizard/toaststunt:2.6.1 .
 
 RUN mkdir -p /home/moo/files
+RUN mkdir -p /home/moo/executables
 RUN mkdir /home/moo-init
 COPY ./v2.6.1/moo.debian /usr/local/bin/moo
 COPY ./restart.sh /usr/local/bin/restart
@@ -15,7 +16,7 @@ COPY ./ToastCore/* /home/moo-init/
 
 #RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
 RUN apt-get update
-RUN apt-get install -yq build-essential gperf libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev
+RUN apt-get install -y build-essential gperf libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev libargon2-dev
 
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
