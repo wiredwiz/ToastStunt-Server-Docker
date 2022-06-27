@@ -2,7 +2,6 @@ FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="2.6.1 r16"
 LABEL description="This is a version 2.6.1 ToastStunt server packaged with a Toast core and the following server debugging options turned on: LOG_COMMANDS, LOG_EVALS, LOG_GC_STATS, SAVE_FINISHED_TASKS, INCLUDE_RT_VARS"
-EXPOSE 8888/tcp
 
 # build command: 
 # docker build --no-cache -f Dockerfile.debug -t wiredwizard/toaststunt:2.6.1-Debug .
@@ -28,9 +27,11 @@ RUN chmod +x /usr/local/bin/moo
 RUN chmod 777 /usr/local/bin/moo
 
 ENV TZ="America/New_York"
+ENV PORT="8888"
+EXPOSE ${PORT}/tcp
 
 STOPSIGNAL SIGINT
 
 WORKDIR /home/moo
 ENTRYPOINT ["/tini", "-g", "-v", "--"]
-CMD ["restart", "moo", "8888"]
+CMD ["sh", "-c", "restart moo $PORT"]

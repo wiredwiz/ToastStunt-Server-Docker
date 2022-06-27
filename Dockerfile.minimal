@@ -2,7 +2,6 @@ FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="2.6.1 r16"
 LABEL description="This is a version 2.6.1 ToastStunt server packaged with a minimal core"
-EXPOSE 8888/tcp
 
 # build command: 
 # docker build --no-cache -f Dockerfile.minimal -t wiredwizard/toaststunt:2.6.1-Minimal .
@@ -28,9 +27,11 @@ RUN chmod +x /usr/local/bin/moo
 RUN chmod 777 /usr/local/bin/moo
 
 ENV TZ="America/New_York"
+ENV PORT="8888"
+EXPOSE ${PORT}/tcp
 
 STOPSIGNAL SIGINT
 
 WORKDIR /home/moo
 ENTRYPOINT ["/tini", "-g", "-v", "--"]
-CMD ["restart", "moo", "8888"]
+CMD ["sh", "-c", "restart moo $PORT"]

@@ -47,6 +47,7 @@ if [ -f $1.log ]; then
 fi
 
 echo `date`: RESTARTED >> $1.log
+echo cmd: moo -l $1.log $1.db $1.db.new $2
 moo -l $1.log $1.db $1.db.new $2
 
 ###############################################################################
