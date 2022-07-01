@@ -1,7 +1,7 @@
 FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="latest"
-LABEL description="This is the latest version of ToastStunt server packaged with a Toast core"
+LABEL description="This is the latest version of ToastStunt server packaged with the latest Toast core"
 
 # build command: 
 # docker build --no-cache -f Dockerfile.latest -t wiredwizard/toaststunt:latest .
@@ -11,7 +11,7 @@ RUN mkdir -p /home/moo/executables
 RUN mkdir /home/moo-init
 RUN mkdir /home/moorepo
 COPY ./v2.6.1/moo.debian /usr/local/bin/moo
-COPY ./restart.sh /usr/local/bin/restart
+COPY ./restart.latest.sh /usr/local/bin/restart
 
 # Download the latest toast core
 ADD https://raw.githubusercontent.com/lisdude/toastcore/master/toastcore.db /home/moo-init/moo.db
