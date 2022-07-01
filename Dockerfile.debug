@@ -11,15 +11,20 @@ RUN mkdir -p /home/moo/executables
 RUN mkdir /home/moo-init
 COPY ./v2.6.1/moo.debian.debug /usr/local/bin/moo
 COPY ./restart.sh /usr/local/bin/restart
-COPY ./ToastCore/* /home/moo/
-COPY ./ToastCore/* /home/moo-init/
+
+# Download the latest toast core
+ADD https://raw.githubusercontent.com/lisdude/toastcore/master/toastcore.db /home/moo-init/moo.db
+ADD /home/moo-init/moo.db /home/moo/moo.db
 
 #RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
 RUN apt-get update
 RUN apt-get install -yq build-essential gperf libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev libargon2-dev
 
+# Install Tini for us to use to insure a graceful shutdown of the moo
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+
+# Fix permissions on our various binaries and scripts just in case it is needed (but generally it will not be)
 RUN chmod +x /tini
 RUN chmod +x /usr/local/bin/restart
 RUN chmod 777 /usr/local/bin/restart
@@ -30,8 +35,10 @@ ENV TZ="America/New_York"
 ENV PORT="8888"
 EXPOSE ${PORT}/tcp
 
+# Change our stop signal so that we can ensure a safe shutdown of the moo when the container stops
 STOPSIGNAL SIGINT
 
+# Set directory to our moo and execute the restart script via Tini for clean process control
 WORKDIR /home/moo
 ENTRYPOINT ["/tini", "-g", "-v", "--"]
 CMD ["sh", "-c", "restart moo $PORT"]
