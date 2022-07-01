@@ -46,7 +46,7 @@ RUN chmod +x /usr/local/bin/restart
 RUN chmod 777 /usr/local/bin/restart
 
 ENV TZ="America/New_York"
-ENV PORT="8888"
+ENV PORT="7777"
 EXPOSE ${PORT}/tcp
 
 # Change our stop signal so that we can ensure a safe shutdown of the moo when the container stops
