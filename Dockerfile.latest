@@ -1,0 +1,58 @@
+FROM debian:bullseye-20220622
+LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
+LABEL version="latest"
+LABEL description="This is the latest version of ToastStunt server packaged with a Toast core"
+
+# build command: 
+# docker build --no-cache -f Dockerfile.latest -t wiredwizard/toaststunt:latest .
+
+RUN mkdir -p /home/moo/files
+RUN mkdir -p /home/moo/executables
+RUN mkdir /home/moo-init
+RUN mkdir /home/moorepo
+COPY ./v2.6.1/moo.debian /usr/local/bin/moo
+COPY ./restart.sh /usr/local/bin/restart
+
+# Download the latest toast core
+ADD https://raw.githubusercontent.com/lisdude/toastcore/master/toastcore.db /home/moo-init/moo.db
+RUN cp /home/moo-init/moo.db /home/moo/moo.db
+
+#RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y build-essential bison gperf cmake libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev libargon2-dev
+
+# Install Tini for us to use to insure a graceful shutdown of the moo
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+ADD https://raw.githubusercontent.com/lisdude/toastcore/master/toastcore.db Toast/moo.db
+
+# Install git, pull the latest repo of the ToastStunt server source and build it, then copy the binary to our moo directory
+RUN apt-get -y install git
+ADD https://api.github.com/repos/lisdude/toaststunt/compare/master...HEAD /dev/null
+RUN git clone https://github.com/lisdude/toaststunt /home/moorepo
+RUN apt-get -y remove --auto-remove git
+RUN apt-get -y purge --auto-remove git
+RUN mkdir /home/moorepo/src/build
+WORKDIR /home/moorepo/src/build
+RUN cmake ../..
+RUN make -j2
+RUN cp moo /usr/local/bin/moo
+
+# Fix permissions on our various binaries and scripts just in case it is needed (but generally it will not be)
+RUN chmod +x /tini
+RUN chmod +x /usr/local/bin/moo
+RUN chmod 777 /usr/local/bin/moo
+RUN chmod +x /usr/local/bin/restart
+RUN chmod 777 /usr/local/bin/restart
+
+ENV TZ="America/New_York"
+ENV PORT="8888"
+EXPOSE ${PORT}/tcp
+
+# Change our stop signal so that we can ensure a safe shutdown of the moo when the container stops
+STOPSIGNAL SIGINT
+
+# Set directory to our moo and execute the restart script via Tini for clean process control
+WORKDIR /home/moo
+ENTRYPOINT ["/tini", "-g", "-v", "--"]
+CMD ["sh", "-c", "restart moo $PORT"]
