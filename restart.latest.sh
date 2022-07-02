@@ -15,24 +15,28 @@
 #   Palo Alto, CA 94304
 #   Pavel@Xerox.Com
 
-if [ $# -lt 1 -o $# -gt 2 ]; then
-	echo 'Usage: restart dbase-prefix [port]'
+if [ $# -lt 1 -o $# -gt 1 ]; then
+	echo 'Usage: restart dbase-prefix'
 	exit 1
 fi
 
+# If we have no database, copy a fresh one from our moo-init directory
 if [ ! -r $1.db ]; then
     if  [ -r ../moo-init/$1.db ]; then
 		cp ../moo-init/$1.db $1.db
 		echo "Database $1.db not found"
-		echo "Copying fresh database: $1.db"
+		echo "Copying a fresh toast core database: $1.db"
     else
 		echo "Unknown database: $1.db"
 		exit 1
 	fi
 fi
 
-mkdir -p files
-mkdir -p executables
+# Build our command line parameters
+. buildParameters
+
+mkdir -p $FILE_DIR
+mkdir -p $EXEC_DIR
 
 if [ -r $1.db.new ]; then
 	mv $1.db $1.db.old
@@ -46,12 +50,28 @@ if [ -f $1.log ]; then
 	rm $1.log
 fi
 
+# Rebuild if specified
+if [ "$REBUILD_SERVER" = "true" ] ; then
+	rm -rf /home/moorepo/build/*
+	cd /home/moorepo/build
+	cmake ../
+	make -j2
+	echo Server finished building
+	cp /home/moorepo/build/moo /home/moo/moo
+	echo moo binary copied to moo directory
+	cd /home/moo
+fi
+
 echo `date`: RESTARTED >> $1.log
-echo cmd: moo -l $1.log $1.db $1.db.new $2
-moo $1.db $1.db.new $2 2>&1 | tee -i -a $1.log
+echo executing: moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS
+moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS 2>&1 | tee -i -a $1.log
 
 ###############################################################################
 # $Log: restart,v $
+#
+# Revision 3.0.0.0  2022/07/02 00:51:48 Modified for ToastStunt Docker Thad
+# ToastStunt 2.8.0
+#
 # Revision 1.1.1.1  1997/03/03 03:45:05  nop
 # LambdaMOO 1.8.0p5
 #

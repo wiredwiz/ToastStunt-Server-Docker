@@ -15,11 +15,12 @@
 #   Palo Alto, CA 94304
 #   Pavel@Xerox.Com
 
-if [ $# -lt 1 -o $# -gt 2 ]; then
-	echo 'Usage: restart dbase-prefix [port]'
+if [ $# -lt 1 -o $# -gt 1 ]; then
+	echo 'Usage: restart dbase-prefix'
 	exit 1
 fi
 
+# If we have no database, copy a fresh one from our moo-init directory
 if [ ! -r $1.db ]; then
     if  [ -r ../moo-init/$1.db ]; then
 		cp ../moo-init/$1.db $1.db
@@ -31,8 +32,11 @@ if [ ! -r $1.db ]; then
 	fi
 fi
 
-mkdir -p files
-mkdir -p executables
+# Build our command line parameters
+. buildParameters
+
+mkdir -p $FILE_DIR
+mkdir -p $EXEC_DIR
 
 if [ -r $1.db.new ]; then
 	mv $1.db $1.db.old
@@ -47,11 +51,15 @@ if [ -f $1.log ]; then
 fi
 
 echo `date`: RESTARTED >> $1.log
-echo cmd: moo -l $1.log $1.db $1.db.new $2
-moo $1.db $1.db.new $2 2>&1 | tee -i -a $1.log
+echo executing: moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS
+moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS 2>&1 | tee -i -a $1.log
 
 ###############################################################################
 # $Log: restart,v $
+#
+# Revision 3.0.0.0  2022/07/02 00:51:48 Modified for ToastStunt Docker Thad
+# ToastStunt 2.8.0
+#
 # Revision 1.1.1.1  1997/03/03 03:45:05  nop
 # LambdaMOO 1.8.0p5
 #

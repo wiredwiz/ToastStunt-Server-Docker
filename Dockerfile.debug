@@ -6,11 +6,12 @@ LABEL description="This is a version 2.6.1 ToastStunt server packaged with the l
 # build command: 
 # docker build --no-cache -f Dockerfile.debug -t wiredwizard/toaststunt:2.6.1-Debug .
 
-RUN mkdir -p /home/moo/files
-RUN mkdir -p /home/moo/executables
-RUN mkdir /home/moo-init
-COPY ./v2.6.1/moo.debian.debug /usr/local/bin/moo
+# Make directories, copy binary & scripts
+RUN mkdir -p /home/moo/
+RUN mkdir -p /home/moo-init
+COPY ./v2.6.1/moo.debian /usr/local/bin/moo
 COPY ./restart.sh /usr/local/bin/restart
+COPY ./buildParameters.sh /usr/local/bin/buildParameters
 
 # Download the latest toast core
 ADD https://raw.githubusercontent.com/lisdude/toastcore/master/toastcore.db /home/moo-init/moo.db
@@ -28,12 +29,15 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 RUN chmod +x /usr/local/bin/restart
 RUN chmod 777 /usr/local/bin/restart
+RUN chmod +x /usr/local/bin/buildParameters
+RUN chmod 777 /usr/local/bin/buildParameters
 RUN chmod +x /usr/local/bin/moo
 RUN chmod 777 /usr/local/bin/moo
 
 ENV TZ="America/New_York"
 ENV PORT="7777"
-EXPOSE ${PORT}/tcp
+EXPOSE ${PORT}/tcp 7778/tcp 
+# I added 7778 as the default exposed TLS port
 
 # Change our stop signal so that we can ensure a safe shutdown of the moo when the container stops
 STOPSIGNAL SIGINT
@@ -41,4 +45,4 @@ STOPSIGNAL SIGINT
 # Set directory to our moo and execute the restart script via Tini for clean process control
 WORKDIR /home/moo
 ENTRYPOINT ["/tini", "-g", "-v", "--"]
-CMD ["sh", "-c", "restart moo $PORT"]
+CMD ["sh", "-c", "restart moo"]
