@@ -2,6 +2,7 @@ FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="latest"
 LABEL description="This is the latest version of ToastStunt server packaged with the latest Toast core"
+LABEL core="Toast"
 
 # build command: 
 # docker build --no-cache -f Dockerfile.latest -t wiredwizard/toaststunt:latest .
