@@ -32,6 +32,10 @@ if [ ! -r $1.db ]; then
 	fi
 fi
 
+if [ ! "$(ls -A /home/moorepo/src)" ]; then
+	cp -R /home/repobackup/src/* /home/moorepo/src
+fi
+
 # Build our command line parameters
 . buildParameters
 
@@ -51,13 +55,13 @@ if [ -f $1.log ]; then
 fi
 
 # Rebuild if specified
-if [ "$REBUILD_SERVER" = "true" ] ; then
+if [ "$REBUILD_SERVER" = "true" ]; then
 	rm -rf /home/moorepo/build/*
 	cd /home/moorepo/build
 	cmake ../
 	make -j2
 	echo Server finished building
-	cp /home/moorepo/build/moo /home/moo/moo
+	cp moo /usr/loal/bin/moo
 	echo moo binary copied to moo directory
 	cd /home/moo
 fi

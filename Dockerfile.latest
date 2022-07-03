@@ -10,6 +10,7 @@ LABEL description="This is the latest version of ToastStunt server packaged with
 RUN mkdir -p /home/moo/
 RUN mkdir -p /home/moo-init
 RUN mkdir -p /home/moorepo
+RUN mkdir -p /home/repobackup
 COPY ./restart.latest.sh /usr/local/bin/restart
 COPY ./buildParameters.sh /usr/local/bin/buildParameters
 
@@ -32,6 +33,7 @@ ADD https://api.github.com/repos/lisdude/toaststunt/compare/master...HEAD /dev/n
 RUN git clone https://github.com/lisdude/toaststunt /home/moorepo
 RUN apt-get -y remove --auto-remove git
 RUN apt-get -y purge --auto-remove git
+RUN cp -R /home/moorepo/* /home/repobackup
 RUN mkdir /home/moorepo/build
 WORKDIR /home/moorepo/build
 RUN cmake ../
