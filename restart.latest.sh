@@ -61,7 +61,7 @@ if [ "$REBUILD_SERVER" = "true" ]; then
 	cmake ../
 	make -j2
 	echo Server finished building
-	cp moo /usr/loal/bin/moo
+	cp moo /usr/local/bin/moo
 	echo moo binary copied to moo directory
 	cd /home/moo
 fi
