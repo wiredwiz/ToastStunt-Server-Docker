@@ -1,11 +1,11 @@
 FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
-LABEL version="2.7.0 r38"
-LABEL description="This is a version 2.8.0 ToastStunt server packaged with a minimal core"
+LABEL version="2.7.0 r39"
+LABEL description="This is a version 2.7.0 ToastStunt server packaged with a minimal core"
 LABEL core="Minimal"
 
 # build command: 
-# docker build --no-cache -f Dockerfile.minimal -t wiredwizard/toaststunt:2.8.0-Minimal .
+# docker build -f Dockerfile.minimal -t wiredwizard/toaststunt:2.7.0-Minimal .
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo/
@@ -18,9 +18,9 @@ COPY ./buildParameters.sh /usr/local/bin/buildParameters
 COPY ./Minimal/* /home/moo/
 COPY ./Minimal/* /home/moo-init/
 
-#RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+# Install the various dependent packages
 RUN apt-get update
-RUN apt-get install -yq build-essential gperf libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev libargon2-dev
+RUN apt-get install -yq build-essential gperf libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev libargon2-dev git
 
 # Install Tini for us to use to insure a graceful shutdown of the moo
 ENV TINI_VERSION v0.19.0
