@@ -60,5 +60,4 @@ STOPSIGNAL SIGINT
 
 # Set directory to our moo and execute the restart script via Tini for clean process control
 WORKDIR /home/moo
-ENTRYPOINT ["/tini", "-g", "-v", "--"]
-CMD ["sh", "-c", "restart moo"]
+ENTRYPOINT ["/tini", "-g", "-v", "--", "restart", "moo"]
