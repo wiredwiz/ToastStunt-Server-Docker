@@ -1,48 +1,53 @@
-#!/bin/sh
+#!/bin/bash
 
 CONFIG_PARAMS="";
 PORT_PARAMS="";
-if [ ! -z "$START_SCRIPT" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -f \"$START_SCRIPT\" "
+if [ "$EMERGENCY_MODE" = "true" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -e "
 fi
-if [ ! -z "$START_LINE" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -c \"$START_LINE\" "
+if [ ! -z "$START_SCRIPT" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -f $START_SCRIPT "
 fi
-if [ "$CLEAR_MOVE" = "true" ] ; then
+# Removing start line support because params cannot handle spaces in the shell expansion and if someone really wants to pass a single
+# line of text, they can use the start script parameter
+#if [ ! -z "$START_LINE" ]; then
+#	CONFIG_PARAMS="$CONFIG_PARAMS -c $START_LINE "
+#fi
+if [ "$CLEAR_MOVE" = "true" ]; then
 	CONFIG_PARAMS="$CONFIG_PARAMS -m "
 fi
-if [ ! -z "$WAIF_TYPE" ] ; then
+if [ ! -z "$WAIF_TYPE" ]; then
 	CONFIG_PARAMS="$CONFIG_PARAMS -w $WAIF_TYPE "
 fi
-if [ "$NO_OUTBOUND" = "true" ] ; then
+if [ "$NO_OUTBOUND" = "true" ]; then
 	CONFIG_PARAMS="$CONFIG_PARAMS -O "
 fi
-if [ ! -z "$IPV4" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -4 \"$IPV4\" "
+if [ ! -z "$IPV4" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -4 $IPV4 "
 fi
-if [ ! -z "$IPV6" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -6 \"$IPV6\" "
+if [ ! -z "$IPV6" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -6 $IPV6 "
 fi
-if [ ! -z "$TLS_CERT" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -r \"$TLS_CERT\" "
+if [ ! -z "$TLS_CERT" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -r $TLS_CERT "
 fi
-if [ ! -z "$TLS_KEY" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -k \"$TLS_KEY\" "
+if [ ! -z "$TLS_KEY" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -k $TLS_KEY "
 fi
-if [ ! -z "$FILE_DIR" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -i \"$FILE_DIR\" "
+if [ ! -z "$FILE_DIR" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -i $FILE_DIR "
 else
 	FILE_DIR="files"
 fi
-if [ ! -z "$EXEC_DIR" ] ; then
-	CONFIG_PARAMS="$CONFIG_PARAMS -x \"$EXEC_DIR\" "
+if [ ! -z "$EXEC_DIR" ]; then
+	CONFIG_PARAMS="$CONFIG_PARAMS -x $EXEC_DIR "
 else
 	EXEC_DIR="executables"
 fi
-if [ ! -z "$PORT" ] ; then
+if [ ! -z "$PORT" ]; then
 	PORT_PARAMS="$PORT_PARAMS -p $PORT"
 fi
-if [ ! -z "$TLS_PORT" ] ; then
+if [ ! -z "$TLS_PORT" ]; then
 	PORT_PARAMS="$PORT_PARAMS -t $TLS_PORT "
 fi
 
