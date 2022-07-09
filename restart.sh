@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (c) 1992, 1995, 1996 Xerox Corporation.  All rights reserved.
 # Portions of this code were written by Stephen White, aka ghond.
@@ -50,8 +50,8 @@ if [ -f $1.log ]; then
 	rm $1.log
 fi
 
-echo `date`: RESTARTED >> $1.log
 echo executing: moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS
+echo `date`: RESTARTED >> $1.log
 moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS 2>&1 | tee -i -a $1.log
 
 ###############################################################################

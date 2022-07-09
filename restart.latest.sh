@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (c) 1992, 1995, 1996 Xerox Corporation.  All rights reserved.
 # Portions of this code were written by Stephen White, aka ghond.
@@ -66,8 +66,8 @@ if [ "$REBUILD_SERVER" = "true" ]; then
 	cd /home/moo
 fi
 
-echo `date`: RESTARTED >> $1.log
 echo executing: moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS
+echo `date`: RESTARTED >> $1.log
 moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS 2>&1 | tee -i -a $1.log
 
 ###############################################################################
