@@ -50,15 +50,15 @@ if [ -f $1.log ]; then
 	rm $1.log
 fi
 
-echo executing: moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS
+echo executing: moo "${CONFIG_PARAMS[@]}" "${1}.db" "${1}.db.new" "${PORT_PARAMS[@]}" "2>&1 | tee -i -a" "${1}.log"
 echo `date`: RESTARTED >> $1.log
-moo $CONFIG_PARAMS $1.db $1.db.new $PORT_PARAMS 2>&1 | tee -i -a $1.log
+moo "${CONFIG_PARAMS[@]}" "${1}.db" "${1}.db.new" "${PORT_PARAMS[@]}" 2>&1 | tee -i -a "${1}.log"
 
 ###############################################################################
 # $Log: restart,v $
 #
 # Revision 3.0.0.0  2022/07/02 00:51:48 Modified for ToastStunt Docker Thad
-# ToastStunt 2.8.0
+# ToastStunt 2.7.0
 #
 # Revision 1.1.1.1  1997/03/03 03:45:05  nop
 # LambdaMOO 1.8.0p5
