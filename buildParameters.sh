@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Initially written by Thaddeus Ryker and heavily overhauled by Lisdude (massive thanks to him) to be more functional and handle quotes properly
+# Copyright (c) 2022, Thaddeus Ryker.
+# Contains many contributions by Lisdude (massive thanks to him) to be more functional and handle quotes properly
+# This script handles building the command line parameters for the moo binary execution based on the defined environmental variables.
 
 declare -a CONFIG_PARAMS=()
 declare -a PORT_PARAMS=()
