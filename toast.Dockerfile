@@ -5,7 +5,7 @@ LABEL description="This is a version 2.7.0 ToastStunt server packaged with the l
 LABEL core="Toast"
 
 # build command: 
-# docker build -f Dockerfile.toast -t wiredwizard/toaststunt:2.7.0 .
+# docker build -f toast.Dockerfile -t wiredwizard/toaststunt:2.7.0 .
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo/

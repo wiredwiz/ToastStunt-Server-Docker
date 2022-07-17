@@ -1,11 +1,11 @@
 FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="latest"
-LABEL description="This is the latest version of ToastStunt server built for testing new features"
+LABEL description="This is the latest version of ToastStunt server packaged with the latest Toast core"
 LABEL core="Toast"
 
 # build command: 
-# docker build -f Dockerfile.test -t wiredwizard/toaststunt:test .
+# docker build -f latest.Dockerfile -t wiredwizard/toaststunt:latest .
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo/
@@ -13,7 +13,7 @@ RUN mkdir -p /home/moo-init
 RUN mkdir -p /home/moorepo
 RUN mkdir -p /home/repobackup
 COPY ./startup.sh /usr/local/bin/startup
-COPY ./restart.test.sh /usr/local/bin/restart
+COPY ./restart.latest.sh /usr/local/bin/restart
 COPY ./buildParameters.sh /usr/local/bin/buildParameters
 
 # Download the latest toast core

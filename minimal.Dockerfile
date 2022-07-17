@@ -1,38 +1,31 @@
 FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
-LABEL version="latest"
-LABEL description="This is the latest version of Sorressean's fork of ToastStunt server packaged with the latest Toast core"
-LABEL core="Toast"
+LABEL version="2.7.0 r39"
+LABEL description="This is a version 2.7.0 ToastStunt server packaged with a minimal core"
+LABEL core="Minimal"
 
 # build command: 
-# docker build -f Dockerfile.sorressean -t wiredwizard/toaststunt:sorressean .
+# docker build -f minimal.Dockerfile -t wiredwizard/toaststunt:2.7.0-Minimal .
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo/
 RUN mkdir -p /home/moo-init
-RUN mkdir -p /home/moorepo
-RUN mkdir -p /home/repobackup
+COPY ./v2.7.0/moo.debian /usr/local/bin/moo
 COPY ./startup.sh /usr/local/bin/startup
-COPY ./restart.latest.sh /usr/local/bin/restart
+COPY ./restart.sh /usr/local/bin/restart
 COPY ./buildParameters.sh /usr/local/bin/buildParameters
 
-# Download the latest toast core
-ADD https://raw.githubusercontent.com/lisdude/toastcore/master/toastcore.db /home/moo-init/moo.db
-RUN cp /home/moo-init/moo.db /home/moo/moo.db
+# Copy our minimal db.  No reason to copy fresh, minimal isn't going to change
+COPY ./Minimal/* /home/moo/
+COPY ./Minimal/* /home/moo-init/
 
 # Install the various dependent packages
 RUN apt-get update
-RUN apt-get install -y build-essential bison gperf cmake libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev libargon2-dev libssl-dev g++ libboost-all-dev
+RUN apt-get install -yq build-essential gperf libsqlite3-dev libaspell-dev libpcre3-dev nettle-dev libcurl4-openssl-dev libargon2-dev git
 
 # Install Tini for us to use to insure a graceful shutdown of the moo
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-ADD https://raw.githubusercontent.com/lisdude/toastcore/master/toastcore.db Toast/moo.db
-
-# Install git, pull the latest repo of the ToastStunt server source and build it, then copy the binary to our moo directory
-RUN apt-get -y install git
-ADD https://api.github.com/repos/sorressean/toaststunt/compare/master...HEAD /dev/null
-RUN git clone https://github.com/sorressean/toaststunt /home/moorepo
 
 # Install gosu
 RUN set -eux; \
@@ -40,14 +33,6 @@ RUN set -eux; \
 	rm -rf /var/lib/apt/lists/*; \
 # verify that the binary works
 	gosu nobody true
-
-# Clone the repo for fresh setups with a mapped volume and build the server
-RUN cp -R /home/moorepo/* /home/repobackup
-RUN mkdir /home/moorepo/build
-WORKDIR /home/moorepo/build
-RUN cmake ../
-RUN make -j2
-RUN cp moo /usr/local/bin/moo
 
 # Fix permissions on our various binaries and scripts just in case it is needed (but generally it will not be)
 RUN chmod +x /tini
