@@ -53,8 +53,8 @@ STOPSIGNAL SIGINT
 
 # Create our moo user and group
 RUN \
-  groupadd -o --gid 900 moo && \
-  useradd -u 900 -g moo -d /home/moo moo && \
+  groupadd -o --gid 10001 moo && \
+  useradd -u 10000 -g moo -d /home/moo moo && \
   usermod -G users moo
 
 # Give moo user ownership of moo related assets
