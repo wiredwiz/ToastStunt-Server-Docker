@@ -1,0 +1,39 @@
+{
+	"dockerfiles": {
+		"latest.Dockerfile": [
+			{
+				"name": "debian",
+				"tag": "bullseye-20220622",
+				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+			}
+		],
+		"minimal.Dockerfile": [
+			{
+				"name": "debian",
+				"tag": "bullseye-20220622",
+				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+			}
+		],
+		"sorressean.Dockerfile": [
+			{
+				"name": "debian",
+				"tag": "bullseye-20220622",
+				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+			}
+		],
+		"test.Dockerfile": [
+			{
+				"name": "debian",
+				"tag": "bullseye-20220622",
+				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+			}
+		],
+		"toast.Dockerfile": [
+			{
+				"name": "debian",
+				"tag": "bullseye-20220622",
+				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+			}
+		]
+	}
+}

@@ -1,4 +1,4 @@
-FROM debian:bullseye-20220622
+FROM debian:bullseye-20220622@sha256:859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="latest"
 LABEL description="This is the latest version of ToastStunt server packaged with the latest Toast core"
