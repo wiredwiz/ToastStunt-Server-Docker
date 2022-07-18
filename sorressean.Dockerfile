@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as build
+FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af as build
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo
@@ -55,7 +55,7 @@ RUN chmod +x /usr/local/bin/moo && \
     chmod +x /usr/local/bin/restart && \
     chmod 777 /usr/local/bin/restart
 
-FROM ubuntu:18.04
+FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="latest"
 LABEL description="This is the latest version of Sorressean's fork of ToastStunt server packaged with the latest Toast core"

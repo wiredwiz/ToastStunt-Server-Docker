@@ -2,37 +2,62 @@
 	"dockerfiles": {
 		"latest.Dockerfile": [
 			{
-				"name": "debian",
-				"tag": "bullseye-20220622",
-				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+			},
+			{
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
 			}
 		],
 		"minimal.Dockerfile": [
 			{
-				"name": "debian",
-				"tag": "bullseye-20220622",
-				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+			},
+			{
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
 			}
 		],
 		"sorressean.Dockerfile": [
 			{
-				"name": "debian",
-				"tag": "bullseye-20220622",
-				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+			},
+			{
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
 			}
 		],
 		"test.Dockerfile": [
 			{
-				"name": "debian",
-				"tag": "bullseye-20220622",
-				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+			},
+			{
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
 			}
 		],
 		"toast.Dockerfile": [
 			{
-				"name": "debian",
-				"tag": "bullseye-20220622",
-				"digest": "859ea45db307402ee024b153c7a63ad4888eb4751921abbef68679fc73c4c739"
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+			},
+			{
+				"name": "ubuntu",
+				"tag": "18.04",
+				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
 			}
 		]
 	}
