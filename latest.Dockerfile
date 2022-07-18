@@ -31,12 +31,14 @@ RUN apt-get update && \
       libssl-dev \
       nettle-dev
 
-# Pull the latest repo of the ToastStunt server source and build it, then copy the binary to our moo directory
+# Pull the latest repo of the ToastStunt server source
 ADD https://api.github.com/repos/lisdude/toaststunt/compare/master...HEAD /dev/null
 RUN git clone https://github.com/lisdude/toaststunt /home/moorepo
 
 # Clone the repo for fresh setups with a mapped volume and build the server
 RUN cp -R /home/moorepo/* /home/repobackup
+
+# Build the server and copy our binary to the bin directory
 RUN mkdir /home/moorepo/build
 WORKDIR /home/moorepo/build
 RUN cmake ../
