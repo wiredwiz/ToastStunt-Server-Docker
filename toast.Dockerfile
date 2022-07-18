@@ -18,7 +18,9 @@ RUN cp /home/moo-init/moo.db /home/moo/moo.db
 # Install the various dependent packages
 RUN apt-get update && \
     apt-get install -y \
+      bison \
       build-essential \      
+      cmake \
       git \
       gperf \    
       libargon2-0-dev \
@@ -32,6 +34,7 @@ RUN apt-get update && \
 # Pull the ToastStunt repo, checkout the server source for 2.7.0 r39
 ADD https://api.github.com/repos/lisdude/toaststunt/compare/master...HEAD /dev/null
 RUN git clone https://github.com/lisdude/toaststunt /home/moorepo
+WORKDIR /home/moorepo
 RUN git checkout 5b4540d
 
 # Clone the repo for fresh setups with a mapped volume and build the server
