@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ ! -z "$PUID" ] && [ ! -z "$PGID" ]; then
     groupmod -o -g "$PGID" moo
     usermod -o -u "$PUID" moo
