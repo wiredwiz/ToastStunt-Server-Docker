@@ -1,4 +1,4 @@
-FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af as build
+FROM debian:bullseye-slim@sha256:f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2 as build
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo
@@ -55,7 +55,7 @@ RUN chmod +x /usr/local/bin/moo && \
     chmod +x /usr/local/bin/restart && \
     chmod 777 /usr/local/bin/restart
 
-FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af
+FROM debian:bullseye-slim@sha256:f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2 as final
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="2.7.0 r39"
 LABEL description="This is a version 2.7.0 ToastStunt server packaged with a minimal core"
@@ -65,15 +65,15 @@ LABEL core="Minimal"
 # docker build -f minimal.Dockerfile -t wiredwizard/toaststunt:2.7.0-Minimal .
 
 # Copy all our various files and directories now that all has been built
-COPY --from=build /usr/local/bin/* /usr/local/bin/
-COPY --from=build /home/* /home/
+COPY --from=build /usr/local/bin/ /usr/local/bin/
+COPY --from=build /home/ /home/
 
 # Install the various dependent packages
 RUN apt-get update && \
     apt-get install -y \
-      build-essential \      
+      build-essential \
       git \
-      gperf \    
+      gperf \
       libargon2-0-dev \
       libaspell-dev \
       libcurl4-openssl-dev \
@@ -94,6 +94,7 @@ RUN set -eux; \
 # verify that the binary works
 	gosu nobody true
 
+# Set our default variables
 ENV TZ="America/New_York"
 ENV PORT="7777"
 # I added 7778 as the default exposed TLS port

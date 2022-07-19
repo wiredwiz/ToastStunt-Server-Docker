@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as build
+FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af as build
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo
@@ -19,10 +19,10 @@ RUN cp /home/moo-init/moo.db /home/moo/moo.db
 RUN apt-get update && \
     apt-get install -y \
       bison \
-      build-essential \      
+      build-essential \
       cmake \
       git \
-      gperf \    
+      gperf \
       libargon2-0-dev \
       libaspell-dev \
       libcurl4-openssl-dev \
@@ -53,7 +53,7 @@ RUN chmod +x /usr/local/bin/moo && \
     chmod +x /usr/local/bin/restart && \
     chmod 777 /usr/local/bin/restart
 
-FROM ubuntu:18.04
+FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="latest"
 LABEL description="This is the latest version of ToastStunt server for testing new features packaged with the latest Toast core"
@@ -63,8 +63,8 @@ LABEL core="Toast"
 # docker build -f test.Dockerfile -t wiredwizard/toaststunt:test .
 
 # Copy all our various files and directories now that all has been built
-COPY --from=build /usr/local/bin/* /usr/local/bin/
-COPY --from=build /home/* /home/
+COPY --from=build /usr/local/bin/ /usr/local/bin/
+COPY --from=build /home/ /home/
 
 # Install the various dependent packages
 RUN apt-get update && \

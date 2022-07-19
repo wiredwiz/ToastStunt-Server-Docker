@@ -2,38 +2,38 @@
 	"dockerfiles": {
 		"latest.Dockerfile": [
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			},
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			}
 		],
 		"minimal.Dockerfile": [
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			},
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			}
 		],
 		"sorressean.Dockerfile": [
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			},
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			}
 		],
 		"test.Dockerfile": [
@@ -50,14 +50,14 @@
 		],
 		"toast.Dockerfile": [
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			},
 			{
-				"name": "ubuntu",
-				"tag": "18.04",
-				"digest": "478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af"
+				"name": "debian",
+				"tag": "bullseye-slim",
+				"digest": "f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2"
 			}
 		]
 	}
