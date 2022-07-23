@@ -80,8 +80,7 @@ RUN apt-get update && \
       libpcre3-dev \
       libsqlite3-dev \
       libssl-dev \
-      nettle-dev \
-      tzdata
+      nettle-dev
 
 # Install Tini for us to use to insure a graceful shutdown of the moo
 ENV TINI_VERSION v0.19.0
@@ -109,7 +108,8 @@ RUN \
   groupadd -o --gid 10001 moo && \
   useradd -u 10000 -g moo -d /home/moo moo && \
   usermod -G users moo && \
-  chown -R moo:moo /home/*
+  chown -R moo:moo /home/* && \
+  chown moo:moo /usr/local/bin/*
 
 # Set directory to our moo and execute the restart script via Tini for clean process control
 WORKDIR /home/moo
