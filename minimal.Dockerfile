@@ -69,15 +69,14 @@ COPY --from=build /usr/local/bin/ /usr/local/bin/
 COPY --from=build /home/ /home/
 
 # Install the various dependent packages
-RUN apt-get update && \
-    apt-get install -y \
-      build-essential \
-      git \
-      gperf \
-      libargon2-0-dev \
+RUN apt update && \
+    apt install -y \
+      libargon2-dev \
       libaspell-dev \
       libcurl4-openssl-dev \
       libpcre3-dev \
+      libpq-dev \
+      libpq5 \
       libsqlite3-dev \
       libssl-dev \
       nettle-dev
