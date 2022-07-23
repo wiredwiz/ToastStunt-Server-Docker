@@ -1,4 +1,4 @@
-FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af as build
+FROM debian:bullseye-slim@sha256:f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2 as build
 
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo
@@ -53,7 +53,7 @@ RUN chmod +x /usr/local/bin/moo && \
     chmod +x /usr/local/bin/restart && \
     chmod 777 /usr/local/bin/restart
 
-FROM ubuntu:18.04@sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af
+FROM debian:bullseye-slim@sha256:f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2 as final
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="latest"
 LABEL description="This is the latest version of ToastStunt server for testing new features packaged with the latest Toast core"
@@ -94,6 +94,7 @@ RUN set -eux; \
 # verify that the binary works
 	gosu nobody true
 
+# Set our default variables
 ENV TZ="America/New_York"
 ENV PORT="7777"
 # I added 7778 as the default exposed TLS port
