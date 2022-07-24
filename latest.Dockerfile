@@ -1,5 +1,9 @@
 FROM debian:bullseye-slim@sha256:f576b8067b77ff85c70725c976b7b6cde960898e2f19b9abab3fb148407614e2 as build
 
+# Many thanks to biscuitWizard for supplying modifications to improve the docker image.
+# Also thanks to Zig for testing the image and pushing for new feature support.
+# Lastly huge thanks to Lisdude for overhauling the dynamic parameter building script.
+
 # Make directories, copy binary & scripts
 RUN mkdir -p /home/moo
 RUN mkdir -p /home/moo-init
