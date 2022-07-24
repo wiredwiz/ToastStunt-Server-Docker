@@ -26,10 +26,27 @@ RUN apt-get update && \
       libargon2-0-dev \
       libaspell-dev \
       libcurl4-openssl-dev \
+      libexpat1-dev \
       libpcre3-dev \
+      libpq-dev \
+      libpq5 \
       libsqlite3-dev \
       libssl-dev \
       nettle-dev
+
+# upgrading CMAKE version to be the latest and greatest.
+WORKDIR /opt
+ADD https://github.com/Kitware/CMake/releases/download/v3.24.0-rc4/cmake-3.24.0-rc4-linux-x86_64.sh cmake-build.sh
+RUN chmod +x cmake-build.sh
+RUN yes | ./cmake-build.sh
+RUN apt remove -y --purge cmake 
+RUN ln -s /opt/cmake-3.24.0-rc4-linux-x86_64/bin/* /usr/local/bin
+
+# Now we need to compile libpqxx for postgres support.
+RUN git clone https://github.com/jtv/libpqxx.git
+WORKDIR /opt/libpqxx
+RUN git checkout 7.6
+RUN pwd ;  cmake . && make -j2 && make install
 
 # Pull the latest repo of the ToastStunt server source
 ADD https://api.github.com/repos/lisdude/toaststunt/compare/master...HEAD /dev/null
@@ -65,19 +82,24 @@ LABEL core="Toast"
 # Copy all our various files and directories now that all has been built
 COPY --from=build /usr/local/bin/ /usr/local/bin/
 COPY --from=build /home/ /home/
+COPY --from=build /usr/local/lib/libpqxx* /usr/local/lib/
+COPY --from=build /opt/ /opt/
 
 # Install the various dependent packages
 RUN apt-get update && \
     apt-get install -y \
       bison \
-      build-essential \      
-      cmake \
+      build-essential \
+      #cmake \
       git \
-      gperf \    
+      gperf \
       libargon2-0-dev \
       libaspell-dev \
       libcurl4-openssl-dev \
+      libexpat1-dev \
       libpcre3-dev \
+      libpq-dev \
+      libpq5 \
       libsqlite3-dev \
       libssl-dev \
       nettle-dev
@@ -109,7 +131,10 @@ RUN \
   useradd -u 10000 -g moo -d /home/moo moo && \
   usermod -G users moo && \
   chown -R moo:moo /home/* && \
-  chown moo:moo /usr/local/bin/*
+  chown moo:moo /usr/local/bin/moo && \
+  chown moo:moo /usr/local/bin/startup && \
+  chown moo:moo /usr/local/bin/restart && \
+  chown moo:moo /usr/local/bin/buildParameters
 
 # Set directory to our moo and execute the restart script via Tini for clean process control
 WORKDIR /home/moo
